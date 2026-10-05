@@ -1,0 +1,29 @@
+<h1>Mis tareas</h1>
+
+@if (tasks().length === 0) {
+
+<p>Todavia no tienes tareas asignadas.</p>
+
+} @else {
+
+@for (task of tasks(); track task.id) {
+
+<article>
+
+  <h2>{{ task.title }}</h2>
+  <p>{{ task.description }}</p>
+
+  <p>Prioridad: {{ task.priority }}</p>
+
+  <p>
+  Estado: {{ task.status }}
+  </p>
+
+  <p>
+  Fecha límite: {{ task.dueDate }}
+  </p>
+
+</article>
+
+}
+}

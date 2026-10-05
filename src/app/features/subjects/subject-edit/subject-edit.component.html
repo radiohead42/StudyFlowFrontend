@@ -1,0 +1,44 @@
+
+<section class="subject-edit-page">
+
+  <header class="page-header">
+    <div>
+      <h1>Editar materia</h1>
+      <p>Modifica la informacion de la materia</p>
+    </div>
+  </header>
+
+  <mat-card class="form-card">
+
+    <mat-card-content>
+
+      <form class="subject-form" (ngSubmit)="update()">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>Nombre de la materia</mat-label>
+          <input matInput type="text" name="name" [(ngModel)]="name"required>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>Profesor</mat-label>
+          <input matInput type="text" name="teacher" [(ngModel)]="teacher" required>
+
+        </mat-form-field>
+
+        <div class="actions">
+
+          <a mat-button routerLink="/subjects" class="cancel-button">Cancelar</a>
+          <button mat-flat-button type="submit">Guardar cambios</button>
+
+        </div>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</section>

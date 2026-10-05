@@ -1,0 +1,50 @@
+
+<section class="subject-create-page">
+
+<header class="page-header">
+
+<div>
+<h1>Nueva materia</h1>
+<p>Agrega una materia a tu espacio de estudio</p>
+</div>
+
+</header>
+
+<mat-card class="form-card">
+
+<mat-card-content>
+
+<form class="subject-form" (ngSubmit)="create()">
+
+<mat-form-field appearance="outline">
+
+<mat-label>Nombre</mat-label>
+
+<input matInput type="text" name="name" [(ngModel)]="name" required>
+
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+
+<mat-label>Profesor</mat-label>
+
+<input matInput type="text" name="teacher" [(ngModel)]="teacher" required>
+
+</mat-form-field>
+
+@if (error) {
+  <p>{{ error }} </p>
+}
+
+<div class="actions">
+<a mat-button routerLink="/subjects">Cancelar</a>
+<button mat-flat-button>Crear</button>
+</div>
+
+</form>
+
+</mat-card-content>
+
+</mat-card>
+
+</section>

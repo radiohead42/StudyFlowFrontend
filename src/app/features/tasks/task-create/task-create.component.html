@@ -1,0 +1,97 @@
+<h1>Nueva tarea</h1>
+
+<form (ngSubmit)="create()">
+
+  <label>
+    Título
+
+    <input
+    type="text"
+    name="title"
+    [(ngModel)]="title"
+    required>
+  </label>
+
+  <br>
+
+  <label>
+    Descripción
+
+    <textarea
+      name="description"
+      [(ngModel)]="description">
+    </textarea>
+  </label>
+
+  <br>
+
+  <label>
+    Fecha límite
+
+    <input
+    type="datetime-local"
+    name="dueDate"
+    [(ngModel)]="dueDate"
+    required>
+  </label>
+
+  <br>
+
+  <label>
+    Prioridad
+
+    <select
+      name="priority"
+      [(ngModel)]="priority">
+
+      <option value="Low">
+      Baja
+      </option>
+
+      <option value="Medium">
+      Media
+      </option>
+
+      <option value="High">
+      Alta
+      </option>
+
+    </select>
+  </label>
+
+  <br>
+
+  <label>
+    Materia
+
+    <select
+      name="subjectId"
+      [(ngModel)]="subjectId"
+      required>
+
+      <option
+      [ngValue]="0"
+      disabled>
+      Selecciona una materia
+      </option>
+
+      @for (subject of subjects(); track subject.id) {
+      <option [ngValue]="subject.id">
+      {{ subject.name }}
+      </option>
+      }
+
+    </select>
+  </label>
+
+  <br>
+
+  <button type="submit">
+    Crear tarea
+  </button>
+
+</form>
+
+@if (error) {
+<p>{{ error }}</p>
+}

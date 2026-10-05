@@ -1,0 +1,54 @@
+<section class="subjects-page">
+
+<header class=page-header>
+
+<div>
+<h1>Mis Materias</h1>
+<p>Administra las materias de tu semestre.</p>
+</div>
+
+<a mat-flat-button routerLink="/subjects/new">Nueva Materia</a>
+</header>
+
+@if (subjects().length === 0) {
+
+  <mat-card class="empty-state">
+
+    <mat-card-content>
+    <h2>No tienes materias todavía</h2>
+    <p>Crea tu primera materia para empezar a organizar tus tareas.</p>
+    <a mat-flat-button routerLink="/subjects/new">Crear Materia</a>
+    </mat-card-content>
+    </mat-card>
+
+}@else {
+
+  <div class="subjects-grid">
+
+    @for (subject of subjects(); track subject.id) {
+
+      <mat-card class="subject-card">
+
+        <mat-card-header>
+
+          <mat-card-title>{{ subject.name }}</mat-card-title>
+          <mat-card-subtitle>{{ subject.teacher }}</mat-card-subtitle>
+
+        </mat-card-header>
+
+        <mat-card-actions>
+
+          <a mat-button [routerLink]="['/subjects', subject.id, 'edit']">Editar</a>
+          <button mat-button type="button" (click)="deleteSubject(subject.id)">Eliminar</button>
+
+      </mat-card-actions>
+
+      </mat-card>
+
+    }
+
+    </div>
+
+}
+
+</section>
