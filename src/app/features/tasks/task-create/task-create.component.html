@@ -1,97 +1,86 @@
-<h1>Nueva tarea</h1>
 
-<form (ngSubmit)="create()">
+<section class="task-create-page">
 
-  <label>
-    Título
+  <header class="page-header">
+    <h1>Nueva tarea</h1>
+    <p>Crear una nueva tarea y asignala a una materia.</p>
+  </header>
 
-    <input
-    type="text"
-    name="title"
-    [(ngModel)]="title"
-    required>
-  </label>
+  <mat-card class="form-card">
 
-  <br>
+    <mat-card-content>
 
-  <label>
-    Descripción
+      <form class="task-form" (ngSubmit)="create()">
 
-    <textarea
-      name="description"
-      [(ngModel)]="description">
-    </textarea>
-  </label>
+        <mat-form-field appearance="outline">
 
-  <br>
+          <mat-label>Título</mat-label>
+          <input matInput type="text" name="title" [(ngModel)]="title" required>
 
-  <label>
-    Fecha límite
+        </mat-form-field>
 
-    <input
-    type="datetime-local"
-    name="dueDate"
-    [(ngModel)]="dueDate"
-    required>
-  </label>
+        <mat-form-field appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput name="description" [(ngModel)]="description"></textarea>
 
-  <br>
+        </mat-form-field>
 
-  <label>
-    Prioridad
+        <mat-form-field appearance="outline">
 
-    <select
-      name="priority"
-      [(ngModel)]="priority">
+          <mat-label>Fecha límite</mat-label>
+          <input matInput [matDatepicker]="picker" name="dueDate" [(ngModel)]="dueDate" required>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
 
-      <option value="Low">
-      Baja
-      </option>
+        </mat-form-field>
 
-      <option value="Medium">
-      Media
-      </option>
+        <mat-form-field appearance="outline">
 
-      <option value="High">
-      Alta
-      </option>
+          <mat-label>Prioridad</mat-label>
 
-    </select>
-  </label>
+          <mat-select name="priority" [(ngModel)]="priority">
 
-  <br>
+            <mat-option value="Low">Baja</mat-option>
 
-  <label>
-    Materia
+            <mat-option value="Medium">Media</mat-option>
 
-    <select
-      name="subjectId"
-      [(ngModel)]="subjectId"
-      required>
+            <mat-option value="High">Alto</mat-option>
 
-      <option
-      [ngValue]="0"
-      disabled>
-      Selecciona una materia
-      </option>
+          </mat-select>
 
-      @for (subject of subjects(); track subject.id) {
-      <option [ngValue]="subject.id">
-      {{ subject.name }}
-      </option>
-      }
+        </mat-form-field>
 
-    </select>
-  </label>
+        <mat-form-field appearance="outline">
 
-  <br>
+          <mat-label>Materia</mat-label>
 
-  <button type="submit">
-    Crear tarea
-  </button>
+          <mat-select name="subjectId" [(ngModel)]="subjectId" required>
 
-</form>
+            @for (subject of subjects(); track subject.id) {
+            <mat-option [value]="subject.id">
+              {{ subject.name }}
+            </mat-option>
+            }
 
-@if (error) {
-<p>{{ error }}</p>
-}
+          </mat-select>
+
+        </mat-form-field>
+
+        @if (error) {
+        <p>{{ error }}</p>
+        }
+
+        <div class="actions">
+
+          <a mat-button routerLink="/tasks">Cancelar</a>
+          <button mat-flat-button type="submit">Crear tarea</button>
+
+        </div>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</section>
