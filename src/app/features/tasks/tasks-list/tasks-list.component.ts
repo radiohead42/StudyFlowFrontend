@@ -1,5 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Tasks } from '../../../core/tasks/tasks.service';
+import { RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 interface Task {
   id: number;
@@ -22,7 +26,7 @@ interface TasksResponse {
 }
 
 @Component({
-  imports: [],
+  imports: [RouterLink, DatePipe, MatButtonModule, MatCardModule],
   selector: 'app-tasks-list',
   styleUrl: './tasks-list.component.scss',
   templateUrl: './tasks-list.component.html',
