@@ -16,7 +16,7 @@
 
           <mat-label>Correo</mat-label>
 
-          <input matInput type="email" name="email" [(ngModel)]="email" required>
+          <input matInput type="email" name="email" [(ngModel)]="email" email required>
 
         </mat-form-field>
 
@@ -31,9 +31,6 @@
         <button mat-flat-button type="submit">Iniciar sesión</button>
 
       </form>
-
-      <p>{{ message }}</p>
-      <p>{{ error }}</p>
 
       <p class="auth-link">
       ¿No tienes una cuenta?

@@ -11,11 +11,16 @@
 
     <mat-card-content>
 
-      <form class="register-form" (ngSubmit)="register()">
+      <form class="register-form" #registerForm="ngForm" (ngSubmit)="register()">
 
         <mat-form-field appearance="outline">
           <mat-label>Correo</mat-label>
-          <input matInput type="email" name="email" [(ngModel)]="email" required>
+          <input matInput type="email" name="email" [(ngModel)]="email" #emailField="ngModel" email autocomplete="email" required>
+
+          @if (emailField.dirty && emailField.hasError('email')) {
+            <mat-error>Por favor, ingresa un correo válido</mat-error>
+          }
+
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -23,26 +28,22 @@
           <input matInput type="password" name="password" [(ngModel)]="password" required>
         </mat-form-field>
 
-        <button mat-flat-button type="submit">
+        <mat-form-field appearance="outline">
+          <mat-label>Confirmar contraseña</mat-label>
+          <input matInput type="password" name="confirmPassword" [(ngModel)]="confirmPassword"
+            #confirmPasswordField="ngModel" autocomplete="new-password" required>
+
+          @if (confirmPasswordField.dirty && !passwordsMatch) {
+            <p class="field-error">Las contraseñas no coinciden</p>
+          }
+        </mat-form-field>
+
+        <button mat-flat-button type="submit" [disabled]="registerForm.invalid || !passwordsMatch">
           Registrarse
         </button>
 
       </form>
 
-      @if (message) {
-
-      <p class="success">
-      {{ message }}
-      </p>
-
-      }
-
-      @if (error) {
-
-      <p class="error">
-      {{ error }}
-      </p>
-      }
       <p class="auth-link">
       ¿Ya tienes cuenta?
 
