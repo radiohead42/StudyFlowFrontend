@@ -37,6 +37,18 @@ export class TasksList implements OnInit {
 
   tasks = signal<Task[]>([]);
 
+  deleteTask(id: number): void {
+    this.taskService.delete(id)
+    .subscribe({
+      next: () => {
+        this.tasks.update(tasks => tasks.filter(task => task.id !== id));
+      },
+      error: err => {
+        console.error('Error al eliminar la tarea:', err);
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.taskService.getAll()
     .subscribe({

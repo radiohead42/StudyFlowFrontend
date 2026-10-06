@@ -8,6 +8,7 @@ import { authGuard } from './core/auth/auth.guard';
 import { TasksList } from './features/tasks/tasks-list/tasks-list.component';
 import { TaskCreate } from './features/tasks/task-create/task-create.component';
 import { Layout } from './shared/layout/layout.component';
+import { TaskEdit } from './features/tasks/task-edit/task-edit.component';
 
 export const routes: Routes = [
 
@@ -19,6 +20,7 @@ export const routes: Routes = [
     {path: 'subjects/:id/edit', component: SubjectEdit},
     {path: 'tasks', component: TasksList},
     {path: 'tasks/new', component: TaskCreate},
+    {path: 'tasks/:id/edit', component: TaskEdit},
     {path: '', pathMatch: 'full', redirectTo: 'register'},
     {path: '**', redirectTo: 'register'}
   ]

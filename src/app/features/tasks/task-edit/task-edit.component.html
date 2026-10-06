@@ -1,0 +1,65 @@
+<section class="task-edit-page">
+
+  <header class="page-header">
+
+    <h1>Editar tarea</h1>
+    <p>Modifica la informacion de tu tarea</p>
+
+  </header>
+
+  <mat-card class="form-card">
+
+    <mat-card-content>
+
+      <form class="task-form" (ngSubmit)="update()">
+
+        <mat-form-field floatLabel="always" appearance="outline">
+
+          <mat-label>Titulo</mat-label>
+          <input matInput name="title" [(ngModel)]="title" required>
+
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always" appearance="outline">
+
+          <mat-label>Descripcion</mat-label>
+          <textarea matInput name="description" [(ngModel)]="description" required></textarea>
+
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always" appearance="outline">
+
+          <mat-label>Fecha limite</mat-label>
+          <input matInput [matDatepicker]="picker" name="dueDate" [(ngModel)]="dueDate" required>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always" appearance="outline">
+
+          <mat-label>Materia</mat-label>
+          <mat-select name="subjectId" [(ngModel)]="subjectId" required>
+
+            @for (subject of subjects(); track subject.id) {
+            <mat-option [value]="subject.id">{{ subject.name }}</mat-option>
+            }
+
+          </mat-select>
+
+        </mat-form-field>
+
+        <div class="actions">
+
+          <a mat-button routerLink="/tasks">Cancelar</a>
+          <button mat-flat-button type="submit">Guardar</button>
+
+        </div>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</section>

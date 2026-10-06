@@ -18,4 +18,34 @@ export class Tasks {
     return this.http.post(this.apiUrl, { title, description, dueDate, priority, status, subjectId });
   }
 
+  getById(id: number) {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
+  update(
+    id: number,
+    title: string,
+    description: string,
+    dueDate: string,
+    priority: string,
+    status: string,
+    subjectId: number
+  ) {
+    return this.http.put(
+      `${this.apiUrl}/${id}`,
+      {
+        title,
+        description,
+        dueDate,
+        priority,
+        status,
+        subjectId
+      }
+    );
+  }
+
+  delete(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
 }

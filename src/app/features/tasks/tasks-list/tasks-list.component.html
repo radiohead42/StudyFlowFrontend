@@ -73,6 +73,13 @@
 
           </mat-card-content>
 
+          <mat-card-actions>
+
+            <a mat-button [routerLink]="'/tasks/'+task.id+'/edit'">Editar</a>
+            <button mat-button (click)="deleteTask(task.id)">Eliminar</button>
+
+          </mat-card-actions>
+
         </mat-card>
 
       }
