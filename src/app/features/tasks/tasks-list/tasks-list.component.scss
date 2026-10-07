@@ -140,3 +140,34 @@
   }
 
 }
+
+.view-options {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-bottom: 1rem;
+}
+
+.table-container {
+  width: 100%;
+
+  overflow-x: auto;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  font-weight: 600;
+}
+
+td,
+th {
+  white-space: nowrap;
+}

@@ -10,6 +10,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 interface Task {
   id: number;
@@ -19,6 +21,10 @@ interface Task {
   priority: string;
   status: number;
   subjectId: number;
+  subject: {
+    id: number;
+    name: string;
+  };
 }
 
 interface TasksResponse {
@@ -32,7 +38,7 @@ interface TasksResponse {
 }
 
 @Component({
-  imports: [RouterLink, DatePipe, MatButtonModule, MatCardModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, MatSelectModule],
+  imports: [RouterLink, DatePipe, MatButtonModule, MatCardModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule, MatButtonToggleModule],
   selector: 'app-tasks-list',
   styleUrl: './tasks-list.component.scss',
   templateUrl: './tasks-list.component.html',
@@ -47,6 +53,8 @@ export class TasksList implements OnInit {
   searchTerm = signal<string>('');
   selectedPriority = signal<string>('all');
   selectedStatus = signal<number | 'all'>('all');
+
+  viewMode = signal<'cards' | 'table'>('cards');
 
   filteredTasks = computed(() => {
     const term = this.searchTerm().trim().toLowerCase();
@@ -141,6 +149,7 @@ export class TasksList implements OnInit {
         return 'Desconocido';
     }
   }
+
   getPriorityLabel(priority: string): string {
 
     switch (priority) {
@@ -158,4 +167,6 @@ export class TasksList implements OnInit {
         return priority;
     }
   }
+
+  displayedColumns = ['title', 'subject', 'priority', 'status', 'dueDate', 'actions'];
 }
