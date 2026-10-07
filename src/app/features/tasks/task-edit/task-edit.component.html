@@ -38,6 +38,29 @@
 
         <mat-form-field floatLabel="always" appearance="outline">
 
+          <mat-label>Prioridad</mat-label>
+          <mat-select name="priority" [(ngModel)]="priority" required>
+            <mat-option value="Low">Baja</mat-option>
+            <mat-option value="Medium">Media</mat-option>
+            <mat-option value="High">Alta</mat-option>
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always" appearance="outline">
+
+          <mat-label>Estado</mat-label>
+          <mat-select name="status" [(ngModel)]="status" required>
+            <mat-option value="Pending">Pendiente</mat-option>
+            <mat-option value="InProgress">En progreso</mat-option>
+            <mat-option value="Completed">Completado</mat-option>
+            <mat-option value="Cancelled">Cancelada</mat-option>
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always" appearance="outline">
+
           <mat-label>Materia</mat-label>
           <mat-select name="subjectId" [(ngModel)]="subjectId" required>
 

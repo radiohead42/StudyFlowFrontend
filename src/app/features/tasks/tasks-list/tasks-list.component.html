@@ -38,9 +38,10 @@ Nueva tarea
 <mat-label>Estado</mat-label>
 <mat-select [value]="selectedStatus()" (selectionChange)="selectedStatus.set($event.value)">
 <mat-option value="all">Todos</mat-option>
-<mat-option value="Pending">Pendiente</mat-option>
-<mat-option value="In Progress">En progreso</mat-option>
-<mat-option value="Completed">Completado</mat-option>
+<mat-option [value]="0">Pendiente</mat-option>
+<mat-option [value]="1">En progreso</mat-option>
+<mat-option [value]="2">Completado</mat-option>
+<mat-option [value]="3">Cancelada</mat-option>
 </mat-select>
 </mat-form-field>
 

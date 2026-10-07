@@ -52,6 +52,19 @@
 
         <mat-form-field appearance="outline">
 
+          <mat-label>Estado</mat-label>
+          <mat-select name="status" [(ngModel)]="status" required>
+            <mat-option value="Pending">Pendiente</mat-option>
+            <mat-option value="InProgress">En progreso</mat-option>
+            <mat-option value="Completed">Completado</mat-option>
+            <mat-option value="Cancelled">Cancelada</mat-option>
+          </mat-select>
+
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+
           <mat-label>Materia</mat-label>
 
           <mat-select name="subjectId" [(ngModel)]="subjectId" required>
