@@ -18,6 +18,12 @@
 
   </header>
 
+  <div class="search-bar">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar tarea</mat-label>
+      <input matInput placeholder="Titulo o descripcion" #searchInput (input)="searchTerm.set(searchInput.value)" />
+    </mat-form-field>
+  </div>
 
   @if (tasks().length === 0) {
 
@@ -46,7 +52,7 @@
 
     <div class="tasks-grid">
 
-      @for (task of tasks(); track task.id) {
+      @for (task of filteredTasks(); track task.id) {
 
         <mat-card class="task-card">
 

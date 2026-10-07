@@ -68,3 +68,12 @@
   }
 
 }
+
+.search-container {
+  margin-bottom: 1.5rem;
+}
+
+.search-container mat-form-field {
+  width: 100%;
+  max-width: 500px;
+}
