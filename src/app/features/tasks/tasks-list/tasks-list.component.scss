@@ -115,3 +115,28 @@
   background: #e3f2fd;
   color: #1565c0;
 }
+
+.task-filters {
+  display: grid;
+
+  grid-template-columns:
+    minmax(250px, 1fr)
+    200px
+    200px;
+
+  gap: 1rem;
+
+  margin-bottom: 1.5rem;
+}
+
+.task-filters mat-form-field {
+  width: 100%;
+}
+
+@media (max-width: 800px) {
+
+  .task-filters {
+    grid-template-columns: 1fr;
+  }
+
+}

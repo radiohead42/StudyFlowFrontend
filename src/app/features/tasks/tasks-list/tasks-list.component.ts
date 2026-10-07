@@ -9,6 +9,7 @@ import { ConfirmDialog } from '../../../shared/confirm-dialog/confirm-dialog.com
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 interface Task {
   id: number;
@@ -31,7 +32,7 @@ interface TasksResponse {
 }
 
 @Component({
-  imports: [RouterLink, DatePipe, MatButtonModule, MatCardModule, MatSnackBarModule, MatFormFieldModule, MatInputModule],
+  imports: [RouterLink, DatePipe, MatButtonModule, MatCardModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, MatSelectModule],
   selector: 'app-tasks-list',
   styleUrl: './tasks-list.component.scss',
   templateUrl: './tasks-list.component.html',
@@ -44,18 +45,22 @@ export class TasksList implements OnInit {
 
   tasks = signal<Task[]>([]);
   searchTerm = signal<string>('');
+  selectedPriority = signal<string>('all');
+  selectedStatus = signal<number | 'all'>('all');
 
   filteredTasks = computed(() => {
     const term = this.searchTerm().trim().toLowerCase();
-
-    if (!term) {
-      return this.tasks();
-    }
+    const priority = this.selectedPriority();
+    const status = this.selectedStatus();
 
     return this.tasks()
-    .filter(task =>
-            task.title.toLowerCase().includes(term) ||
-              task.description.toLowerCase().includes(term));
+    .filter(task => {
+            const matchesSearch = task.title.toLowerCase().includes(term) || task.description.toLowerCase().includes(term);
+            const matchesPriority = priority === 'all' || task.priority === priority;
+            const matchesStatus = status === 'all' || task.status === status;
+
+            return (matchesSearch && matchesPriority && matchesStatus);
+    });
   });
 
 

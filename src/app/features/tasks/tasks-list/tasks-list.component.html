@@ -23,6 +23,27 @@ Nueva tarea
 <mat-label>Buscar tarea</mat-label>
 <input matInput placeholder="Titulo o descripcion" #searchInput (input)="searchTerm.set(searchInput.value)" />
 </mat-form-field>
+
+<mat-form-field appearance="outline">
+<mat-label>Prioridad</mat-label>
+<mat-select [value]="selectedPriority()" (selectionChange)="selectedPriority.set($event.value)">
+<mat-option value="all">Todas</mat-option>
+<mat-option value="Low">Baja</mat-option>
+<mat-option value="Medium">Media</mat-option>
+<mat-option value="High">Alta</mat-option>
+</mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+<mat-label>Estado</mat-label>
+<mat-select [value]="selectedStatus()" (selectionChange)="selectedStatus.set($event.value)">
+<mat-option value="all">Todos</mat-option>
+<mat-option value="Pending">Pendiente</mat-option>
+<mat-option value="In Progress">En progreso</mat-option>
+<mat-option value="Completed">Completado</mat-option>
+</mat-select>
+</mat-form-field>
+
 </div>
 
 @if (tasks().length === 0) {
