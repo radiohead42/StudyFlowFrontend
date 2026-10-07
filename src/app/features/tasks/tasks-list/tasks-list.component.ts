@@ -16,7 +16,7 @@ interface Task {
   description: string;
   dueDate: string;
   priority: string;
-  status: string;
+  status: number;
   subjectId: number;
 }
 
@@ -114,5 +114,43 @@ export class TasksList implements OnInit {
         console.error('Error al obtener las tareas:', err);
       }
     });
+  }
+
+  getStatusLabel(status: number): string {
+
+    switch (status) {
+
+      case 0:
+        return 'Pendiente';
+
+      case 1:
+        return 'En progreso';
+
+      case 2:
+        return 'Completada';
+
+      case 3:
+        return 'Cancelada';
+
+      default:
+        return 'Desconocido';
+    }
+  }
+  getPriorityLabel(priority: string): string {
+
+    switch (priority) {
+
+      case 'Low':
+        return 'Baja';
+
+      case 'Medium':
+        return 'Media';
+
+      case 'High':
+        return 'Alta';
+
+      default:
+        return priority;
+    }
   }
 }

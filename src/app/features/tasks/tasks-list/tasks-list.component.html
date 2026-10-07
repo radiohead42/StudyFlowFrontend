@@ -1,97 +1,122 @@
 <section class="tasks-page">
 
-  <header class="page-header">
+<header class="page-header">
 
-    <div>
-      <h1>Mis tareas</h1>
+<div>
+<h1>Mis tareas</h1>
 
-      <p>
-        Organiza y consulta tus tareas pendientes.
-      </p>
-    </div>
+<p>
+Organiza y consulta tus tareas pendientes.
+</p>
+</div>
+
+<a
+mat-flat-button
+routerLink="/tasks/new">
+Nueva tarea
+</a>
+
+</header>
+
+<div class="search-bar">
+<mat-form-field appearance="outline">
+<mat-label>Buscar tarea</mat-label>
+<input matInput placeholder="Titulo o descripcion" #searchInput (input)="searchTerm.set(searchInput.value)" />
+</mat-form-field>
+</div>
+
+@if (tasks().length === 0) {
+
+  <mat-card class="empty-state">
+
+    <mat-card-content>
+
+    <h2>No tienes tareas todavía</h2>
+
+    <p>
+    Crea tu primera tarea para comenzar
+    a organizar tu estudio.
+    </p>
 
     <a
-      mat-flat-button
-      routerLink="/tasks/new">
-      Nueva tarea
+    mat-flat-button
+    routerLink="/tasks/new">
+    Crear tarea
     </a>
 
-  </header>
-
-  <div class="search-bar">
-    <mat-form-field appearance="outline">
-      <mat-label>Buscar tarea</mat-label>
-      <input matInput placeholder="Titulo o descripcion" #searchInput (input)="searchTerm.set(searchInput.value)" />
-    </mat-form-field>
-  </div>
-
-  @if (tasks().length === 0) {
-
-    <mat-card class="empty-state">
-
-      <mat-card-content>
-
-        <h2>No tienes tareas todavía</h2>
-
-        <p>
-          Crea tu primera tarea para comenzar
-          a organizar tu estudio.
-        </p>
-
-        <a
-          mat-flat-button
-          routerLink="/tasks/new">
-          Crear tarea
-        </a>
-
-      </mat-card-content>
+    </mat-card-content>
 
     </mat-card>
 
-  } @else {
+}@else if (filteredTasks().length === 0) {
 
-    <div class="tasks-grid">
+  <mat-card class="empty-state">
+    <mat-card-content>
+    <h2>No se encontraron tareas</h2>
+    <p>No hay tareas que coincidan con tu búsqueda "{{ searchTerm() }}". Intenta con otro término.</p>
+    </mat-card-content>
+    </mat-card>
 
-      @for (task of filteredTasks(); track task.id) {
+}@else {
 
-        <mat-card class="task-card">
+  <div class="tasks-grid">
 
-          <mat-card-header>
+    @for (task of filteredTasks(); track task.id) {
 
-            <mat-card-title>
-              {{ task.title }}
-            </mat-card-title>
+      <mat-card class="task-card">
 
-          </mat-card-header>
+        <mat-card-header>
+
+        <mat-card-title>
+        {{ task.title }}
+      </mat-card-title>
+
+        </mat-card-header>
 
 
-          <mat-card-content>
+        <mat-card-content>
 
-            <p class="description">
-              {{ task.description }}
-            </p>
+        <p class="description">
+          {{ task.description }}
+        </p>
 
-            <p class="due-date">
-              <strong>Fecha límite:</strong>
+        <div class="task-meta">
+          <span class="priority"
+            [class.priority-low]="task.priority === 'Low'"
+            [class.priority-medium]="task.priority === 'Medium'"
+            [class.priority-high]="task.priority === 'High'">
+              {{ getPriorityLabel(task.priority) }}
+          </span>
 
-              {{ task.dueDate | date:'dd/MM/yyyy HH:mm' }}
-            </p>
+        <span class="status">
 
-          </mat-card-content>
+          {{ getStatusLabel(task.status) }}
 
-          <mat-card-actions>
+        </span>
 
-            <a mat-button [routerLink]="'/tasks/'+task.id+'/edit'">Editar</a>
-            <button mat-button (click)="deleteTask(task.id)">Eliminar</button>
+        </div>
 
-          </mat-card-actions>
+        <p class="due-date">
+        <strong>Fecha límite:</strong>
+
+        {{ task.dueDate | date:'dd/MM/yyyy HH:mm' }}
+      </p>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+
+        <a mat-button [routerLink]="'/tasks/'+task.id+'/edit'">Editar</a>
+        <button mat-button (click)="deleteTask(task.id)">Eliminar</button>
+
+        </mat-card-actions>
 
         </mat-card>
 
-      }
+    }
 
-    </div>
+  </div>
 
-  }
+}
 
 </section>
