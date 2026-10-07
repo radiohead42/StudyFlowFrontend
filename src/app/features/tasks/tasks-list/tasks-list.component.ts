@@ -4,6 +4,9 @@ import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialog } from '../../../shared/confirm-dialog/confirm-dialog.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 interface Task {
   id: number;
@@ -26,7 +29,7 @@ interface TasksResponse {
 }
 
 @Component({
-  imports: [RouterLink, DatePipe, MatButtonModule, MatCardModule],
+  imports: [RouterLink, DatePipe, MatButtonModule, MatCardModule, MatSnackBarModule],
   selector: 'app-tasks-list',
   styleUrl: './tasks-list.component.scss',
   templateUrl: './tasks-list.component.html',
@@ -34,33 +37,65 @@ interface TasksResponse {
 export class TasksList implements OnInit {
 
   private readonly taskService = inject(Tasks);
+  private readonly dialog = inject(MatDialog);
+  private readonly snackBar = inject(MatSnackBar);
 
   tasks = signal<Task[]>([]);
 
   deleteTask(id: number): void {
-    this.taskService.delete(id)
-    .subscribe({
-      next: () => {
-        this.tasks.update(tasks => tasks.filter(task => task.id !== id));
-      },
-      error: err => {
-        console.error('Error al eliminar la tarea:', err);
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      width: '420px',
+      data: {
+        title: 'Eliminar tarea',
+        message: '¿Estás seguro de que deseas eliminar esta tarea? Esta acción no se puede deshacer.'
       }
     });
+
+    dialogRef.afterClosed()
+      .subscribe(confirmed => {
+        if (!confirmed) {
+          return;
+        }
+
+        this.taskService.delete(id)
+          .subscribe({
+            next: () => {
+
+              this.snackBar.open(
+                'Tarea eliminada correctamente',
+                'Cerrar',
+                { duration: 3000,
+                  horizontalPosition: 'right',
+                  verticalPosition: 'top',
+                  panelClass: ['snackbar-success'] }
+              );
+
+              this.tasks.update(tasks =>
+                tasks.filter(task => task.id !== id)
+              );
+            },
+            error: () => {
+              this.snackBar.open('Error en eliminar la tarea', 'cerrar', {
+                duration: 3000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top',
+                panelClass: ['snackbar-error']
+              });
+            }
+          });
+      });
   }
 
   ngOnInit(): void {
     this.taskService.getAll()
-    .subscribe({
-      next: response => {
-        const result = response as TasksResponse;
-        this.tasks.set(result.items);
-      },
-      error: err => {
-        console.error('Error al obtener las tareas:', err);
-      }
-    });
+      .subscribe({
+        next: response => {
+          const result = response as TasksResponse;
+          this.tasks.set(result.items);
+        },
+        error: err => {
+          console.error('Error al obtener las tareas:', err);
+        }
+      });
   }
-
 }
-
