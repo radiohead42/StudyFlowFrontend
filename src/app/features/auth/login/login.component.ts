@@ -20,8 +20,8 @@ export class Login {
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
 
-  email = '';
-  password = '';
+  email = 'correo@correo.com';
+  password = 'contra223Q@';
 
 
   login(): void {
